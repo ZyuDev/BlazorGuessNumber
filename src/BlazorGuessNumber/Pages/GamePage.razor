@@ -1,0 +1,69 @@
+﻿@page "/Game"
+@page "/"
+
+<div class="row">
+
+    <div class="col-sm-5">
+        <h5 class="text-primary">@FormTitle</h5>
+    </div>
+    <div class="col-sm-2">
+        @if (Game.IsRunning)
+        {
+            <button class="btn btn-sm btn-outline-danger" @onclick="OnStopClick">Stop game</button>
+
+        }
+        else
+        {
+            <button class="btn btn-sm btn-outline-primary" @onclick="OnStartClick">Start game</button>
+        }
+
+    </div>
+
+</div>
+
+@if (Game.IsRunning)
+{
+
+    <div class="row" style="margin-top: 10px;">
+
+        <div class="col-sm-5">
+            <BbNumberInput TValue="int" @bind-Value="_currentNumber" HtmlClass="form-control form-control-sm text-right" Placeholder="Your number"></BbNumberInput>
+        </div>
+
+        <div class="col-sm-2">
+            <button class="btn btn-sm btn-outline-primary" @onclick="OnMakeTurnClick">Make turn</button>
+        </div>
+
+    </div>
+
+
+}
+
+@if (Game.TurnResults.Any())
+{
+
+    <div class="row" style="margin-top: 10px;">
+
+        <div class="col-sm-6">
+
+            <div class="list-group">
+
+                @foreach (var item in Game.TurnResults)
+                {
+                    <div class="list-group-item @TurnResultClass(item)">
+                        <span class="badge badge-light badge-pill">@(Game.TurnResults.IndexOf(item)+1)</span>
+                        <span>&nbsp;</span>
+                        <span>
+                            @item.Message
+                        </span>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+}
+

@@ -1,0 +1,77 @@
+﻿@page "/Settings"
+
+<div class="row">
+
+    <div class="col-sm-4">
+
+        <div class="card">
+
+            <div class="card-header">
+                <span class="text-info float-left">Settings</span>
+                @if (!_isEditing)
+                {
+                    <a href="#" class="float-right" @onclick:preventDefault @onclick="OnEditClick">
+                        <span class="oi oi-pencil text-primary" aria-hidden="true"></span>
+                    </a>
+                }
+                else
+                {
+
+                    <a href="#" class="float-right" @onclick:preventDefault @onclick="OnCancelClick">
+                        <span class="oi oi-x text-danger" aria-hidden="true"></span>
+                    </a>
+                    <a href="#" class="float-right" @onclick:preventDefault @onclick="OnOkClick">
+                        <span>OK</span>
+                        <span>&nbsp;&nbsp;</span>
+                    </a>
+
+
+                }
+            </div>
+
+            <div class="card-body">
+
+                @if (_settingsLocal != null)
+                {
+                    <div class="form-group form-row">
+                        <label class="col-sm-4">Min value</label>
+                        <div class="col-sm-8">
+                            <BbNumberInput TValue="int"
+                                           HtmlClass="form-control form-control-sm text-right"
+                                           IsDisabled="!_isEditing"
+                                           @bind-Value="_settingsLocal.MinValue"></BbNumberInput>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-row">
+                        <label class="col-sm-4">Max value</label>
+                        <div class="col-sm-8">
+                            <BbNumberInput TValue="int"
+                                           HtmlClass="form-control form-control-sm text-right"
+                                           IsDisabled="!_isEditing"
+                                           @bind-Value="_settingsLocal.MaxValue"></BbNumberInput>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-row">
+                        <label class="col-sm-4">Turns count</label>
+                        <div class="col-sm-8">
+                            <BbNumberInput TValue="int"
+                                           HtmlClass="form-control form-control-sm text-right"
+                                           IsDisabled="!_isEditing"
+                                           @bind-Value="_settingsLocal.TurnsCount"></BbNumberInput>
+                        </div>
+                    </div>
+                }
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
