@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlazorGuessNumber.Models
 {
-    public class GameSettings: IGameSettings
+    public class GameSettings: IGameSettings, ICloneable
     {
         public int MinValue { get; set; } = 0;
         public int MaxValue { get; set; } = 100;
@@ -16,7 +16,6 @@ namespace BlazorGuessNumber.Models
         {
 
         }
-
 
         public void Update(IGameSettings settings)
         {
@@ -30,5 +29,12 @@ namespace BlazorGuessNumber.Models
             return $"{TurnsCount} turns in [{MinValue}, {MaxValue}]";
         }
 
+        public object Clone()
+        {
+            var clone = new GameSettings();
+            clone.Update(this);
+
+            return clone;
+        }
     }
 }
