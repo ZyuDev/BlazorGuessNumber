@@ -1,4 +1,5 @@
 ﻿using BlazorGuessNumber.Abstract;
+using BlazorGuessNumber.Enums;
 using BlazorGuessNumber.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -33,22 +34,33 @@ namespace BlazorGuessNumber.Pages
 
         protected override void OnInitialized()
         {
-            _runner = new GameRunner(Game, Settings);
+            _runner = new GameRunner(Game);
         }
 
         private void OnStartClick()
         {
-            _runner.Start();
+            var command = new StartGameCommand(Settings);
+            _runner.Execute(command);
         }
 
         private void OnStopClick()
         {
-            _runner.Stop();
+            var command = new StopGameCommand();
+            _runner.Execute(command);
         }
 
         private void OnMakeTurnClick()
         {
-            _runner.MakeTurn(_currentNumber);
+            var command = new MakeTurnGameCommand(Settings, _currentNumber);
+            _runner.Execute(command);
+
+            var lastResult = Game.TurnResults.LastOrDefault();
+            if (lastResult.Kind == TurnResultKinds.LooseTurnResult 
+                || lastResult.Kind == TurnResultKinds.WinTurnResult)
+            {
+                var stopCommand = new StopGameCommand();
+                _runner.Execute(stopCommand);
+            }
         }
 
         private string TurnResultClass(IGameTurnResult turnResult)
