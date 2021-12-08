@@ -19,7 +19,7 @@ namespace BlazorGuessNumber.Pages
 
         protected override void OnInitialized()
         {
-            _settingsLocal = (GameSettings)((GameSettings)Settings).Clone();
+            _settingsLocal = new GameSettings(Settings);
         }
 
         private void OnEditClick()

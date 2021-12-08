@@ -17,6 +17,11 @@ namespace BlazorGuessNumber.Models
 
         }
 
+        public GameSettings(IGameSettings settings)
+        {
+            Update(settings);   
+        }
+
         public void Update(IGameSettings settings)
         {
             MinValue = settings.MinValue;
@@ -31,8 +36,7 @@ namespace BlazorGuessNumber.Models
 
         public object Clone()
         {
-            var clone = new GameSettings();
-            clone.Update(this);
+            var clone = new GameSettings(this);
 
             return clone;
         }
